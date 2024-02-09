@@ -7,8 +7,7 @@ interface NewNoteCardPros {
     onNoteCreated: (content: string) => void
 }
 
-const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
-const speechRecognition = new SpeechRecognitionAPI()
+let speechRecognition: SpeechRecognition | null = null
 
 export function NewNoteCard({ onNoteCreated }: NewNoteCardPros) {
     const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
@@ -51,6 +50,9 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardPros) {
 
         setIsRecording(true)
         setShouldShowOnboarding(false)
+
+        const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
+        speechRecognition = new SpeechRecognitionAPI()
 
         speechRecognition.lang = 'pt-BR'
         speechRecognition.continuous = true
